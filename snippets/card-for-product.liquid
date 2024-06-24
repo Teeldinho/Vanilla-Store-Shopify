@@ -1,0 +1,36 @@
+
+
+{%- if card_product and card_product != empty -%}
+
+  {%- liquid  
+    assign price = card_product.price
+    assign price_max = card_product.price_max
+    assign discount = price_max | minus: price | divided_by: price_max | times: 100 | round: 2
+    assign label = 'High Demand'
+    assign reviews = 521
+  -%}
+
+  <div class="relative flex flex-col w-full h-full gap-0.5">
+  {% render 'card' %}
+  {% render 'card-header' %}
+    {% render 'card-image', image_src: card_product.featured_image, image_alt: image_alt %}
+    {% if label %}
+      <div class="absolute top-5 left-3">
+        {% render 'badge', variant: 'primary', content: label %}
+      </div>
+    {% endif %}
+    {% if discount and discount > 0 %}
+      <div class="absolute top-5 right-3">
+        {% render 'badge', variant: 'secondary', content: "Save " | append: discount %}
+      </div>
+    {% endif %}
+
+  {% render 'card-content' %}
+    {% render 'card-title', title: card_product.title %}
+    <div class="flex items-center">
+      {% render 'render-stars', rating: 3 %}
+      <span class="ml-2 text-lg text-gray-500 capitalize line-clamp-1 font-poppins">{{ reviews }} Reviews</span>
+    </div>
+    <p class="text-2xl font-semibold text-gray-700 font-poppins">{{ card_product.price | money }}</p>
+  </div>
+{%- endif -%}

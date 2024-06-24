@@ -1,0 +1,74 @@
+{% comment %} {%- liquid
+  assign products_to_display = section.settings.collection.all_products_count
+
+  if section.settings.collection.all_products_count > section.settings.products_to_show
+    assign products_to_display = section.settings.products_to_show
+  endif
+-%}  {% endcomment %}
+
+<section class="gap-5 p-4 space-y-8 md:py-20 md:pl-[10vw] lg:pl-[20vw] md:gap-12">
+
+  <div class="flex items-center justify-between w-full md:pr-[10vw] lg:pr-[20vw]">
+    <h2 class="text-3xl font-extrabold font-sourceSerif md:text-5xl">{{ section.settings.title }}</h2>
+    <a href="#" class="text-2xl font-semibold text-gray-500 sm:hidden md:block font-poppins">{{ section.settings.link-text }}</a>
+  </div>
+ 
+  <div class="md:flex w-full md:gap-6 md:pb-28 md:overflow-x-auto md:max-w-[90vw] lg:max-w-[94vw] md:snap-x md:snap-mandatory custom-scrollbar md:flex-nowrap">
+    {%- for product in section.settings.collection.products -%}
+    <div class="w-full h-full snap-start md:min-w-96 lg:min-w-[34rem]">
+        {% render 'card-for-product',
+          card_product: product, 
+        %}
+    </div>
+    {% endfor %}  
+  </div>
+
+  <button id="show-more" class="flex items-center justify-center w-full px-8 py-3 mt-6 text-sm font-semibold text-white bg-black rounded-full md:hidden">Show More</button>
+</section>
+
+{% schema %}
+{
+  "name": "Product List",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Best Sellers"
+    },
+    {
+      "type": "text",
+      "id": "link-text",
+      "label": "Link Text",
+      "default": "Shop All Best Sellers →"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection"
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "label": "Products to Show Initially",
+      "default": 4,
+      "min": 2,
+      "max": 20
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product List",
+      "category": "Products"
+    }
+  ]
+}
+{% endschema %}
+
+<script>
+  document.getElementById('show-more').addEventListener('click', function() {
+    const hiddenProducts = document.querySelectorAll('.product-card.hidden');
+    hiddenProducts.forEach(product => product.classList.remove('hidden'));
+    this.classList.add('hidden');
+  });
+</script>

@@ -1,0 +1,8 @@
+{% assign max_stars = 5 %}
+{% for i in (1..max_stars) %}
+  {% if i <= rating %}
+    <span class="text-black">★</span>
+  {% else %}
+    <span class="text-gray-200">★</span>
+  {% endif %}
+{% endfor %}
