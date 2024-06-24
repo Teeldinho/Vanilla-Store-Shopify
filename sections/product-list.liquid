@@ -15,7 +15,7 @@
  
   <div class="md:flex w-full md:gap-6 md:pb-28 md:overflow-x-auto md:max-w-[90vw] lg:max-w-[94vw] md:snap-x md:snap-mandatory custom-scrollbar md:flex-nowrap">
     {%- for product in section.settings.collection.products -%}
-    <div class="w-full h-full snap-start md:min-w-96 lg:min-w-[34rem]">
+    <div class="w-full h-full snap-start md:min-w-96 lg:min-w-[34rem] product-card">
         {% render 'card-for-product',
           card_product: product, 
         %}
@@ -70,5 +70,28 @@
     const hiddenProducts = document.querySelectorAll('.product-card.hidden');
     hiddenProducts.forEach(product => product.classList.remove('hidden'));
     this.classList.add('hidden');
+  });
+</script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const productCards = document.querySelectorAll('.product-card');
+
+    productCards.forEach(card => {
+      const img = card.querySelector('.product-image');
+      const hoverSrc = img.getAttribute('data-hover');
+  
+      if (hoverSrc) {
+        const originalSrc = img.src;
+  
+        card.addEventListener('mouseenter', () => {
+          img.src = hoverSrc;
+        });
+  
+        card.addEventListener('mouseleave', () => {
+          img.src = originalSrc;
+        });
+      }
+    });
   });
 </script>

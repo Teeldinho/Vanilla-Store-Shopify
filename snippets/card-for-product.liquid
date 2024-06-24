@@ -13,7 +13,8 @@
   <div class="relative flex flex-col w-full h-full gap-0.5">
   {% render 'card' %}
   {% render 'card-header' %}
-    {% render 'card-image', image_src: card_product.featured_image, image_alt: image_alt %}
+    {% comment %} {% render 'card-image', image_src: card_product.featured_image, image_alt: image_alt %} {% endcomment %}
+    {% render 'card-image', card_product: card_product %}
     {% if label %}
       <div class="absolute top-5 left-3">
         {% render 'badge', variant: 'primary', content: label %}

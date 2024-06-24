@@ -1,1 +1,6 @@
-<img src="{{ image_src | image_url }}" alt="{{ image_alt }}" class="object-cover w-full h-40 rounded-lg md:h-[355px] md:w-[355px]" height="355px" width="355px" />
+{% if card_product.media.size > 0 %}
+    <img  src="{{ card_product.images[0] | image_url}}" alt="{{ card_product.images[0] | escape }}" class="product-image object-cover w-full h-40 rounded-lg md:h-[355px] md:w-[355px]" height="355px" width="355px" data-hover="{{ card_product.images[1] | image_url}}">
+  {% else %}
+    <img src="{{ card_product.featured_image.src | image_url}}" alt="{{ card_product.featured_image.alt | escape }}" class="product-image object-cover w-full h-40 rounded-lg md:h-[355px] md:w-[355px]" height="355px" width="355px" data-hover="{{ card_product.featured_image.src | image_url}}">
+  {% endif %} 
+  
