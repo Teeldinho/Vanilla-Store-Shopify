@@ -1,29 +1,49 @@
-{% comment %} {%- liquid
-  assign products_to_display = section.settings.collection.all_products_count
+<section class="gap-12 relative p-8 md:py-20 md:pl-[10vw] md:gap-16 flex-1 w-full h-svh md:w-screen flex flex-col justify-center">
 
-  if section.settings.collection.all_products_count > section.settings.products_to_show
-    assign products_to_display = section.settings.products_to_show
-  endif
--%}  {% endcomment %}
+  <div class="flex items-center justify-between w-full md:pr-[5vw] lg:pr-[10vw]">
+    <h2 class="w-full text-4xl font-extrabold text-center md:max-w-fit md:text-left font-sourceSerif md:text-5xl">{{ section.settings.title }}</h2>
+    <a id="link-to-view-all" href="#" class="text-2xl font-semibold text-gray-500 md:block font-poppins">{{ section.settings.link-text }}</a>
+  </div> 
 
-<section class="gap-5 p-4 space-y-8 md:py-20 md:pl-[10vw] lg:pl-[20vw] md:gap-12">
-
-  <div class="flex items-center justify-between w-full md:pr-[10vw] lg:pr-[20vw]">
-    <h2 class="text-3xl font-extrabold font-sourceSerif md:text-5xl">{{ section.settings.title }}</h2>
-    <a href="#" class="text-2xl font-semibold text-gray-500 sm:hidden md:block font-poppins">{{ section.settings.link-text }}</a>
-  </div>
- 
-  <div class="md:flex w-full md:gap-6 md:pb-28 md:overflow-x-auto md:max-w-[90vw] lg:max-w-[94vw] md:snap-x md:snap-mandatory custom-scrollbar md:flex-nowrap">
-    {%- for product in section.settings.collection.products -%}
-    <div class="w-full h-full snap-start md:min-w-96 lg:min-w-[34rem] product-card">
-        {% render 'card-for-product',
-          card_product: product, 
-        %}
+  <!-- Mobile only -- preview -->
+  <div id="preview-section" class="flex flex-col min-w-full gap-12 transition-all duration-1000 md:hidden">
+    <div class="flex flex-row flex-wrap flex-1 gap-8">
+      {%- for product in section.settings.collection.products limit: 4 -%}
+      <div class="flex-1 w-full product-card">
+          {% render 'card-for-product', card_product: product %}
+      </div>
+      {% endfor %}   
     </div>
-    {% endfor %}  
+  
+    <!-- Show More button for mobile view -->
+    <button id="show-more-button" class="flex items-center justify-center w-full px-8 py-4 text-xl font-semibold text-white bg-black rounded-full">Show More</button>
   </div>
 
-  <button id="show-more" class="flex items-center justify-center w-full px-8 py-3 mt-6 text-sm font-semibold text-white bg-black rounded-full md:hidden">Show More</button>
+  <!-- Mobile only -- show more -->
+  <div id="show-more-section" class="fixed top-0 left-0 z-50 hidden w-full h-full gap-12 pb-2 transition-all duration-1000 bg-white md:hidden">
+    <div class="flex flex-wrap flex-1 gap-8 p-8 overflow-y-scroll">
+      {%- for product in section.settings.collection.products offset: 4 -%}
+      <div class="flex-1 min-w-[45%] product-card">
+          {% render 'card-for-product', card_product: product %}
+      </div>
+      {% endfor %}   
+    </div>
+
+    <!-- Close show more overlay button for mobile view -->
+    <button id="close-button" class="absolute flex items-center justify-center px-5 py-3 text-base font-semibold text-white bg-black rounded-full ring ring-white ring-offset-2 top-2 left-2">X</button>
+  </div>
+
+  <!-- Tablets and Desktop Only: Horizontal Scroll -->
+  <div id="desktop-section" class="hidden">
+    <div class="md:flex gap-6 md:pb-20 lg:pb-28 overflow-x-auto max-w-[90vw] lg:max-w-[94vw] snap-x snap-mandatory custom-scrollbar flex-nowrap">
+      {%- for product in section.settings.collection.products -%}
+      <div class="flex-1 snap-start min-w-96 lg:min-w-[34rem] product-card">
+        {% render 'card-for-product', card_product: product %}
+      </div>
+      {% endfor %}  
+    </div>
+  </div>
+  
 </section>
 
 {% schema %}
@@ -46,14 +66,6 @@
       "type": "collection",
       "id": "collection",
       "label": "Collection"
-    },
-    {
-      "type": "range",
-      "id": "products_to_show",
-      "label": "Products to Show Initially",
-      "default": 4,
-      "min": 2,
-      "max": 20
     }
   ],
   "presets": [
@@ -66,10 +78,51 @@
 {% endschema %}
 
 <script>
-  document.getElementById('show-more').addEventListener('click', function() {
-    const hiddenProducts = document.querySelectorAll('.product-card.hidden');
-    hiddenProducts.forEach(product => product.classList.remove('hidden'));
-    this.classList.add('hidden');
+  function updateViewBasedOnWidth() {
+    const desktopSection = document.getElementById('desktop-section');
+    const linkToViewAll = document.getElementById('link-to-view-all');
+    const width = window.innerWidth;
+    if (width >= 768) { // md breakpoint
+      desktopSection.classList.remove('hidden');
+      linkToViewAll.classList.remove('hidden');
+    } else {
+      desktopSection.classList.add('hidden');
+      linkToViewAll.classList.add('hidden');
+    }
+  }
+
+  window.addEventListener('resize', updateViewBasedOnWidth);
+  document.addEventListener('DOMContentLoaded', updateViewBasedOnWidth);
+
+  document.getElementById('show-more-button').addEventListener('click', function() {
+    const previewSection = document.getElementById('preview-section');
+    const showMoreSection = document.getElementById('show-more-section');
+
+    previewSection.classList.add('opacity-0', 'pointer-events-none');
+    setTimeout(() => {
+      previewSection.classList.add('hidden');
+      previewSection.classList.remove('opacity-0', 'pointer-events-none');
+      showMoreSection.classList.remove('hidden');
+      showMoreSection.classList.add('flex');
+      setTimeout(() => {
+        showMoreSection.classList.add('opacity-100');
+      }, 10);
+    }, 300);
+  });
+
+  document.getElementById('close-button').addEventListener('click', function() {
+    const previewSection = document.getElementById('preview-section');
+    const showMoreSection = document.getElementById('show-more-section');
+
+    showMoreSection.classList.remove('opacity-100');
+    setTimeout(() => {
+      showMoreSection.classList.add('hidden');
+      showMoreSection.classList.remove('flex');
+      previewSection.classList.remove('hidden');
+      setTimeout(() => {
+        previewSection.classList.add('opacity-100');
+      }, 10);
+    }, 300);
   });
 </script>
 

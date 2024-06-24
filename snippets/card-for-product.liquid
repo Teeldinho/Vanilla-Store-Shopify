@@ -10,28 +10,29 @@
     assign reviews = 521
   -%}
 
-  <div class="relative flex flex-col w-full h-full gap-0.5">
-  {% render 'card' %}
-  {% render 'card-header' %}
-    {% comment %} {% render 'card-image', image_src: card_product.featured_image, image_alt: image_alt %} {% endcomment %}
-    {% render 'card-image', card_product: card_product %}
-    {% if label %}
-      <div class="absolute top-5 left-3">
-        {% render 'badge', variant: 'primary', content: label %}
+  <div class="flex flex-col flex-1 gap-2 md:gap-4">
+      <div class="relative flex-1">
+        {% render 'card-image', card_product: card_product %}
+        {% if label %}
+          <div class="absolute top-4 left-3">
+            {% render 'badge', variant: 'primary', content: label %}
+          </div>
+        {% endif %}
+        {% if discount and discount > 0 %}
+          <div class="absolute top-4 right-3">
+            {% render 'badge', variant: 'secondary', content: "Save " | append: discount %}
+          </div>
+        {% endif %}
       </div>
-    {% endif %}
-    {% if discount and discount > 0 %}
-      <div class="absolute top-5 right-3">
-        {% render 'badge', variant: 'secondary', content: "Save " | append: discount %}
-      </div>
-    {% endif %}
 
-  {% render 'card-content' %}
-    {% render 'card-title', title: card_product.title %}
-    <div class="flex items-center">
-      {% render 'render-stars', rating: 3 %}
-      <span class="ml-2 text-lg text-gray-500 capitalize line-clamp-1 font-poppins">{{ reviews }} Reviews</span>
-    </div>
-    <p class="text-2xl font-semibold text-gray-700 font-poppins">{{ card_product.price | money }}</p>
+      <div class="max-h-min">
+        {% render 'card-title', title: card_product.title %}
+        <div class="flex items-center">
+          {% render 'render-stars', rating: 3 %}
+          <span class="ml-2 text-base text-gray-500 capitalize md:text-lg line-clamp-1 font-poppins">{{ reviews }} Reviews</span>
+        </div>
+        <p class="text-xl font-semibold text-gray-700 md:text-2xl font-poppins">{{ card_product.price | money }}</p>
+      </div>
   </div>
+
 {%- endif -%}
