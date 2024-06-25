@@ -34,9 +34,9 @@
       {% render 'card-title', title: card_product.title %}
       <div class="flex items-center">
         {% render 'render-stars', rating: rating %}
-        <span class="ml-2 text-base text-gray-500 capitalize md:text-lg line-clamp-1 font-poppins">{{ reviews_count }} Reviews</span>
+        <span class="ml-2 text-sm text-gray-500 capitalize md:text-lg line-clamp-1 font-poppins">{{ reviews_count }} Reviews</span>
       </div>
-      <p class="text-xl font-semibold text-gray-700 md:text-2xl font-poppins">{{ card_product.price | money }}</p>
+      <p class="text-lg font-semibold text-gray-700 md:text-2xl font-poppins">{{ card_product.price | money }}</p>
     </div>
   </div>
 

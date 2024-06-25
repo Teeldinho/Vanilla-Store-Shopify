@@ -7,7 +7,7 @@
 
   <!-- Mobile only -- preview -->
   <div id="preview-section" class="flex flex-col min-w-full gap-8 transition-all duration-1000 md:hidden">
-    <div class="flex flex-row flex-wrap flex-1 gap-8">
+    <div class="grid flex-1 grid-cols-2 grid-rows-2 gap-4 overflow-y-scroll">
       {%- for product in section.settings.collection.products limit: 4 -%}
       <div class="flex-1 w-full product-card">
           {% render 'card-for-product', card_product: product %}

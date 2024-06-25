@@ -2,15 +2,15 @@
 
 This project builds upon a previous solution that demonstrated how to develop a reusable, customizable UI component system using plain vanilla JavaScript, HTML, and Tailwind CSS. You can find the previous project [here](https://github.com/Teeldinho/Vanilla-Store). That project aimed to create a customizable, composable design system that could be tweaked for multiple use cases and clientele.
 
-In [this](https://td-vanilla-store.myshopify.com/) Shopify project, we leveraged Shopify's capabilities and metafields to enhance product displays. We started with the Shopify Dawn theme and incorporated Tailwind CSS for styling.
+In [this](https://td-vanilla-store.myshopify.com/) Shopify project, we leveraged Shopify's capabilities and `metafields` to enhance product displays. We started with the Shopify Dawn theme and incorporated Tailwind CSS for styling.
 
 ![Hero Products](media/vs-hero-2.png)
 
 ## Introduction
 
-We used metafields for various attributes such as ratings, reviews count, and labels. The label metafield is the most accurate to use, while ratings and reviews count are interdependent and managed carefully.
+We used metafields for various attributes such as `ratings`, `reviews_count`, and `labels`. The `label` metafield is the most accurate to use, while ratings and reviews count are interdependent and managed carefully.
 
-Our approach involves creating reusable snippets that render specific parts of our components. These snippets can be easily reused across different sections of our Shopify store, promoting consistency and ease of maintenance. This solution serves as a simple introduction to making Shopify Themes using Liquid.
+Our approach involves creating reusable `snippets` that render specific parts of our components. These `snippets` can be easily reused across different `sections` of our Shopify store, promoting consistency and ease of maintenance. This solution serves as a simple introduction to making Shopify Themes using `Liquid`.
 
 ## Metafields
 
@@ -32,11 +32,14 @@ The "Card" component is the foundation of our product display system. It is comp
 - "card-description": For additional descriptive text.
 - "card-footer": For footer content, typically actions or summary.
 - "card-image": Displays images within the card.
-- "render-stars": Renders the star rating of the product.
 
 ### Badge Component
 
 The "Badge" component is used to highlight labels or discounts on products. It supports different variants like "primary" and "secondary" to provide stylistic differentiation. This ensures consistency across the application while allowing contextual customization.
+
+### Helper Components
+
+- "render-stars": Renders the star rating of the product.
 
 ### Product List Component
 
