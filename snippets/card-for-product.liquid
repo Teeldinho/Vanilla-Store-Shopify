@@ -7,22 +7,27 @@
     assign reviews_count = card_product.metafields.custom.reviews_count.value 
   -%}
 
-  <div class="flex flex-col flex-1 gap-2 md:gap-5">
+  <div class="flex flex-col flex-1 w-full gap-2 md:gap-5 md:w-72 lg:w-80">
+    
     <div class="relative flex-1">
       {% render 'card-image', card_product: card_product %}
-      {% if label %}
-        <div class="absolute top-4 left-3">
-          {% render 'badge', variant: 'primary', content: label %}
-        </div>
-      {% endif %}
 
-      {% if discount and discount > 0 %}
-        <div class="absolute top-4 right-3">
-          <div class="flex items-center justify-center w-full flex-nowrap tracking-wider bg-emerald-800/60 rounded-full text-white text-xs font-medium px-1.5 md:px-3 py-1 md:py-2 uppercase border-1 border-black">
-            {{  "Save " | append: discount | append: "%" }}
+      <div class="absolute flex flex-wrap justify-between w-full gap-2 px-2 top-2">
+        {% if label %}
+          <div class="max-w-fit">
+            {% render 'badge', variant: 'primary', content: label %}
           </div>
-        </div>
-      {% endif %}
+        {% endif %}
+  
+        {% if discount and discount > 0 %}
+          <div class="max-w-fit">
+            <span class="flex items-center justify-center w-full flex-nowrap tracking-wider bg-emerald-800/60 rounded-full text-white text-sm md:text-sm font-medium px-1.5 md:px-3 py-0.25 md:py-1.25 uppercase border-1 border-black">
+              {{  "Save " | append: discount | append: "%" }}
+            </span>
+          </div>
+        {% endif %}
+      </div>
+
     </div>
 
     <div class="flex flex-col w-full gap-1 max-h-min">

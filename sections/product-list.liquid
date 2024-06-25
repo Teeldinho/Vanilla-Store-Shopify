@@ -1,12 +1,12 @@
 <section class="gap-12 relative p-8 md:py-20 md:pl-[10vw] md:gap-16 flex-1 w-full h-svh md:w-screen flex flex-col justify-center">
 
-  <div class="flex items-center justify-between w-full md:pr-[5vw] lg:pr-[10vw]">
+  <div class="flex items-center justify-between w-full md:pr-[2vw] lg:pr-[10vw]">
     <h2 class="w-full text-4xl font-extrabold text-center md:max-w-fit md:text-left font-sourceSerif md:text-5xl">{{ section.settings.title }}</h2>
     <a id="link-to-view-all" href="#" class="text-2xl font-semibold text-gray-500 md:block font-poppins">{{ section.settings.link-text }}</a>
   </div> 
 
   <!-- Mobile only -- preview -->
-  <div id="preview-section" class="flex flex-col min-w-full gap-12 transition-all duration-1000 md:hidden">
+  <div id="preview-section" class="flex flex-col min-w-full gap-8 transition-all duration-1000 md:hidden">
     <div class="flex flex-row flex-wrap flex-1 gap-8">
       {%- for product in section.settings.collection.products limit: 4 -%}
       <div class="flex-1 w-full product-card">
@@ -35,9 +35,9 @@
 
   <!-- Tablets and Desktop Only: Horizontal Scroll -->
   <div id="desktop-section" class="hidden">
-    <div class="md:flex gap-6 md:pb-20 lg:pb-28 overflow-x-auto max-w-[90vw] lg:max-w-[94vw] snap-x snap-mandatory custom-scrollbar flex-nowrap">
+    <div class="md:flex gap-4 md:gap-6 md:pb-20 lg:pb-24 overflow-x-auto max-w-[92vw] lg:max-w-[94vw] snap-x snap-mandatory custom-scrollbar flex-nowrap">
       {%- for product in section.settings.collection.products -%}
-      <div class="flex-1 snap-start min-w-96 lg:min-w-[34rem] product-card">
+      <div class="snap-start w-full max-w-96 lg:max-w-[34rem] product-card">
         {% render 'card-for-product', card_product: product %}
       </div>
       {% endfor %}  

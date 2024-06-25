@@ -10,21 +10,15 @@ In [this](https://td-vanilla-store.myshopify.com/) Shopify project, we leveraged
 
 We used metafields for various attributes such as ratings, reviews count, and labels. The label metafield is the most accurate to use, while ratings and reviews count are interdependent and managed carefully.
 
-Our approach involves creating reusable `snippets` that render specific parts of our components. These snippets can be easily reused across different `sections` of our Shopify store, promoting consistency and ease of maintenance.
+Our approach involves creating reusable snippets that render specific parts of our components. These snippets can be easily reused across different sections of our Shopify store, promoting consistency and ease of maintenance. This solution serves as a simple introduction to making Shopify Themes using Liquid.
 
-## Helpers
-
-### Metafields
+## Metafields
 
 We utilized Shopify metafields to enhance our product displays:
 
 - **Label**: Used to display custom labels like "Best Seller".
 - **Rating**: Stores the product rating.
 - **Reviews Count**: Stores the number of reviews for the product.
-
-### Utility Snippets
-
-Our approach involves creating reusable snippets that encapsulate specific parts of the product display logic. These snippets can be integrated into various sections of the store, ensuring a consistent and modular design.
 
 ## Components
 
@@ -38,6 +32,7 @@ The "Card" component is the foundation of our product display system. It is comp
 - "card-description": For additional descriptive text.
 - "card-footer": For footer content, typically actions or summary.
 - "card-image": Displays images within the card.
+- "render-stars": Renders the star rating of the product.
 
 ### Badge Component
 
@@ -49,9 +44,13 @@ The "ProductList" component manages the display of product cards. Upon hovering 
 
 On Mobile, it shows a limited number of products initially, with an option to reveal more using a "Show More" button. This button triggers a smooth overlay to display additional products on mobile devices, enhancing user experience.
 
-### Tailwind CSS
+## Tech Used
 
-We used Tailwind CSS for styling our components, providing utility-first CSS classes that help in quickly building custom designs without leaving the HTML.
+- **Shopify Dawn Theme**: Customized to serve as the foundation of our project.
+- **Tailwind CSS**: Applied for styling, providing a utility-first approach to design.
+- **Liquid**: Shopify's templating language, used to create dynamic, data-driven components and templates.
+- **JavaScript**: Employed to add interactivity, such as handling the "Show More" button functionality and image hover effects.
+- **Shopify Metafields**: Used to store custom data like product ratings, reviews count, and labels.
 
 ## Screenshots
 
@@ -73,12 +72,12 @@ We used Tailwind CSS for styling our components, providing utility-first CSS cla
 
 ## Conclusion
 
-This project demonstrates how to extend [our vanilla JS solution](https://github.com/Teeldinho/Vanilla-Store) into a Shopify environment using `metafields` and reusable `snippets`.
+This project demonstrates how to extend [our vanilla JS, HTML and Tailwind solution](https://td-vanilla-store.myshopify.com/) into a shopify environment, and serves as a simple practical introduction to creating Shopify themes using `Liquid`.
+
+By leveraging `metafields` for dynamic data, and reusable `snippets` for reusability, we aimed to build a flexible, maintainable product display system.
 
 We aimed to replicate the concept of compound components in ReactJS, favoring composition over configuration. However, this approach, considering the nature of tools being used and the simplicity of our desired outcome, has its limitations.
 
-By using `metafields` for dynamic data and Tailwind CSS for styling, we created a flexible and maintainable product display system. The ideas of this approach can be built upon to support a variety of app UIs since it aims to guarantee a consistent user interface and permits modifications and extensions with ease.
+The ideas of this approach can be built upon to support a variety of app UIs since it aims to guarantee a consistent user interface and permits modifications and extensions with ease.
 
-```
-Note: Demo Store Password to be made available upon request.
-```
+> Note: Demo Store Password to be made available upon request.
