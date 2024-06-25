@@ -7,8 +7,6 @@
     assign reviews_count = card_product.metafields.custom.reviews_count.value 
   -%}
 
-
-
   <div class="flex flex-col flex-1 gap-2 md:gap-5">
     <div class="relative flex-1">
       {% render 'card-image', card_product: card_product %}
@@ -20,7 +18,7 @@
 
       {% if discount and discount > 0 %}
         <div class="absolute top-4 right-3">
-          <div class="flex items-center justify-center w-full flex-nowrap tracking-wider bg-emerald-800/60 rounded-full text-white text-xs font-medium px-1.5 md:px-3 py-1 md:py-1.5 uppercase border-1 border-black">
+          <div class="flex items-center justify-center w-full flex-nowrap tracking-wider bg-emerald-800/60 rounded-full text-white text-xs font-medium px-1.5 md:px-3 py-1 md:py-2 uppercase border-1 border-black">
             {{  "Save " | append: discount | append: "%" }}
           </div>
         </div>
