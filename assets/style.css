@@ -1181,6 +1181,18 @@ video {
     gap: 4rem;
   }
 
+  .md\:gap-8 {
+    gap: 2rem;
+  }
+
+  .md\:gap-5 {
+    gap: 1.25rem;
+  }
+
+  .md\:gap-1 {
+    gap: 0.25rem;
+  }
+
   .md\:overflow-x-auto {
     overflow-x: auto;
   }
